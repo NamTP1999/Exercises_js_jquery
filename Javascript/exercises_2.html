@@ -1,0 +1,71 @@
+ <!DOCTYPE html>
+ <html lang="en">
+ <head>
+
+  <!--converting your typed characters -->
+  <meta charset="UTF-8">
+
+  <!--title of page-->
+  <title>Profile</title>
+
+  <!--meta viewport-->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+  <!-- StyleSheet css-->
+  <link rel="stylesheet" href="./assets/css/select_item.css">
+
+  <!-- StyleSheet js-->
+  <script rel="stylesheet" src="./assets/js/select_item.js"></script>
+
+  <!-- fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital@1&display=swap" rel="stylesheet">
+
+  <!-- fonts icon -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">  
+
+  <!--  bootstrap-->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+
+
+</head>
+<body style="background-image: url('./assets/images/background-default.jpg')">
+  <div class="container" >
+    <h1 class="text-center">CHỌN TỈNH THÀNH</h1>
+    <hr>
+    <div class="row justify-content-md-center mt-5" style=";padding-bottom: 3em">
+      <!-- edit form column -->
+      <div class="col-md-3">
+        <select class="form-select text-center" onChange="selectItem()" id="id_items">
+          <option ></option>
+         <option value="1">1</option>
+         <option value="2">2</option>
+         <option value="3">3</option>
+         <option value="4">4</option>
+         <option value="5">5</option>
+         <option value="6">6</option>
+         <option value="7">Chẵn</option>
+         <option value="8">Lẻ</option>
+         <option value="9">Reset</option>
+       </select>
+     </div>
+     <div class="col-md-2"></div>
+     <div class="col-md-4">
+      <select class="form-select" size="8" id="province">
+        <option value="1">1. Hà Nội</option>
+        <option value="2">2. Sài Gòn</option>
+        <option value="3">3. Đà Nẵng</option>
+        <option value="4">4. Huế</option>
+        <option value="5">5. Hải Phòng</option>
+        <option value="6">6. Nha Trang</option>
+      </select>
+    </div>
+  </div>
+</div>
+<script>
+</script>
+</body>
+</html> 
