@@ -4,7 +4,7 @@ function add(){
 	event.preventDefault();
 
 	/* get value input  */
-	const name = document.getElementById("name").value;
+	var name = document.getElementById("name").value;
 	var email = document.getElementById("email").value;
 	var phone = document.getElementById("phone").value;
 	var birthday = document.getElementById("birthday").value;
@@ -81,33 +81,33 @@ function add(){
 	/* validate form*/
 
 	function validateName(name, error_name) {
-		if(name == ""){
-		   	error_name.innerHTML = "Please Enter valid Full name";
+
+		const regName = /^[^\d+]*[\d+]{0}[^\d+]*$/;
+		const errorMess = "Invalid name given";
+		if(!isRequired(name, error_name)){
 		   	return false;
-		}else if(name.length >= 50){
-			error_name.innerHTML = "Please Enter less Than 50 Characters";
+
+		}else if(!isMax(name, error_name, 50)){
 			return false;
-		}else{
-			const regName = /^[^\d+]*[\d+]{0}[^\d+]*$/;
-			if(!regName.test(name)){
-				error_name.innerHTML = "Invalid name given";
-				return false;
-			}
+
+		}else if(!isRegex(name, error_name, regName, errorMess)){
+			return false;
 		}
 
 		return true;
 	}
 
-	function validateEmail(email,error_email) {
-		const regEmail =/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
-		if( email== ""){
-		   	error_email.innerHTML = "Please Enter valid Email";
+	function validateEmail(email, error_email) {
+		const regEmail = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
+		const errorMess = "Invalid email given";
+
+		if(!isRequired(email, error_email)){
 		   	return false;
-	   }else if(!regEmail.test(email)){
-		   	error_email.innerHTML = "Invalid email given";
+
+		}else if(!isRegex(email, error_email, regEmail, errorMess)){
 		   	return false;
-	   }else if(email.length < 16 || email.length > 40){
-		   	error_email.innerHTML = "Invalid email, character length between 6 and 30";
+
+	   }else if(!isBetween(email, error_email, 16, 40)){
 		   	return false;
 	   }
 
@@ -116,39 +116,77 @@ function add(){
 
 	function validatePhone(phone, error_phone) {
 		const regPhone =/((09|03|07|08|05)+([0-9]{8})\b)/g;
+		const errorMess = "Invalid phone given";
 
-		if( phone== ""){
-		   	error_phone.innerHTML = "Please Enter valid Phone";
+	   if(!isRequired(phone, error_phone)){
 		   	return false;
-	   }else if(!regPhone.test(phone)){
-		   	error_phone.innerHTML = "Invalid phone given";
+
+		}else if(!isRegex(phone, error_phone, regPhone, errorMess)){
 		   	return false;
+
 	   }
 
 	   return true;
 	}
 
 	function validateBirthday(birthday, error_birthday) {
-		if( birthday== ""){
-	   	error_birthday.innerHTML = "Please Enter valid Birthday";
-	   	return false;
+		if(!isRequired(birthday, error_birthday)){
+		   	return false;
+
+		}
+
+	   return true;
+	}
+
+	function validatePassword(password, error_password) {
+	   const regPassword =  /^(?=.*[0-9])(?=.*[A-Z])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{6,16}$/;
+	   const errorMess = "Password has at least one special character, number and uppercase letter";
+
+	   if(!isRegex(password, error_password, regPassword, errorMess)){
+		   	return false;
+
+	   }else if(!isBetween(password, error_password, 8, 30)){
+		   	return false;
 	   }
 
 	   return true;
 	}
 
-	function validatePassword(password) {
-	   const regPassword =  /^(?=.*[0-9])(?=.*[A-Z])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{6,16}$/;
 
-	   if(!regPassword.test(password)){
-		   	error_password.innerHTML = "Password has at least one special character, number and uppercase letter";
-		   	return false;
-	   }else if(password.length < 8 || password.length > 30){
-		   	error_password.innerHTML = "Invalid password, character length between 8 and 30";
-		   	return false;
-	   }
+	/*function validate*/
+	function isRequired(inputValue, error_text){
+		if(inputValue == ""){
+			error_text.innerHTML = "Please Enter value";
+			return false;
+		}
+		return true;
+	}
 
-	   return true;
+	function isMax(inputValue, error_text, max){
+		if(inputValue.length >= max){
+			error_text.innerHTML = "Please Enter less Than "+max+" Characters";
+			return false;
+		}
+
+		return true;
+	}
+
+	function isRegex(inputValue, error_text , reg, errorMess){
+		if(!reg.test(inputValue)){
+			error_text.innerHTML = errorMess;
+			return false;
+		}
+
+		return true;
+	}
+
+	function isBetween(inputValue, error_text , min, max){
+		if(inputValue.length < min || inputValue.length > max){
+		   	error_text.innerHTML = "Invalid , character length between "+min+" and "+max;
+		   	return false;
+		}
+
+		return true;
 	}
 
 
@@ -199,3 +237,4 @@ function add(){
 		} 
 
 	}
+
