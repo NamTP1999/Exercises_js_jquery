@@ -1,0 +1,53 @@
+
+.container{
+	margin-top: 3em;
+}
+
+a{
+	color: white !important;
+}
+.avatar{
+	margin-top: 3em;
+}
+
+.avatar img{
+	max-width: 100px;
+	height: 100px;
+    border-radius: 100px;
+}
+
+.avatar input{
+	width: 13%;
+    padding-top: 5.5em;
+    margin-left: 5px;
+    border: none;
+}
+
+#error_avatar{
+	margin-top: 5.5em;
+}
+
+form span{
+	color: red;
+    font-size: 15px;
+    padding-left: 10px;
+}
+
+.col-form-label{
+	font-weight: 600;
+}
+
+.btn-add, .btn-reset{
+	width: 30%;
+}
+
+.info{
+	margin: 3em 0px;
+    border: 1px solid #bbb8b8;
+}
+
+.error{
+	color: red;
+    font-size: 15px;
+    padding-left: 10px;
+}
