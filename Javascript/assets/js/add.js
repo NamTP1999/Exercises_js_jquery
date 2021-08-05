@@ -1,5 +1,5 @@
 
-function add(){
+function add() {
 	/*get request submit*/
 	event.preventDefault();
 
@@ -49,7 +49,7 @@ function add(){
 	status = validatePassword(password, errorPassword);
 
 	/* check password and confirmpassword*/
-	if(password.toString() != confirmpwd.toString()){
+	if (password.toString() != confirmpwd.toString()) {
 	   	text = "Entered password does not match";
 	   	errorConfirmpwd.innerHTML = text;
 	   	status = false;
@@ -65,7 +65,7 @@ function add(){
 	birthday = formatDate(birthday);
 
 	/* save data */ 
-	if(status){
+	if (status) {
 		note.style.display = "block";
 		dataName.innerHTML = name;
 		dataEmail.innerHTML = email;
@@ -84,13 +84,13 @@ function validateName(name, errorName) {
 
 	const regName = /^[^\d+]*[\d+]{0}[^\d+]*$/;
 	const errorMess = "Invalid name given";
-	if(!isRequired(name, errorName)){
+	if (!isRequired(name, errorName)) {
 		return false;
 
-	}else if(!isMax(name, errorName, 50)){
+	} else if (!isMax(name, errorName, 50)) {
 		return false;
 
-	}else if(!isRegex(name, errorName, regName, errorMess)){
+	} else if (!isRegex(name, errorName, regName, errorMess)) {
 		return false;
 	}
 
@@ -101,38 +101,35 @@ function validateEmail(email, errorEmail) {
 	const regEmail = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
 	const errorMess = "Invalid email given";
 
-	if(!isRequired(email, errorEmail)){
+	if (!isRequired(email, errorEmail)) {
 		return false;
 
-	}else if(!isRegex(email, errorEmail, regEmail, errorMess)){
+	} else if (!isRegex(email, errorEmail, regEmail, errorMess)) {
 		return false;
 
-	}else if(!isBetween(email, errorEmail, 16, 40)){
+	} else if (!isBetween(email, errorEmail, 16, 40)) {
 		return false;
 	}
 
 	return true;
 }
 
-function validatePhone(phone, errorPhone) {
+function validatePhone (phone, errorPhone) {
 	const regPhone =/((09|03|07|08|05)+([0-9]{8})\b)/g;
 	const errorMess = "Invalid phone given";
 
-	if(!isRequired(phone, errorPhone)){
+	if (!isRequired(phone, errorPhone)) {
 		return false;
-
-	}else if(!isRegex(phone, errorPhone, regPhone, errorMess)){
+	} else if (!isRegex(phone, errorPhone, regPhone, errorMess)) {
 		return false;
-
 	}
 
 	return true;
 }
 
 function validateBirthday(birthday, errorBirthday) {
-	if(!isRequired(birthday, errorBirthday)){
+	if (!isRequired(birthday, errorBirthday)) {
 		return false;
-
 	}
 
 	return true;
@@ -142,10 +139,9 @@ function validatePassword(password, errorPassword) {
 	const regPassword =  /^(?=.*[0-9])(?=.*[A-Z])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{6,16}$/;
 	const errorMess = "Password has at least one special character, number and uppercase letter";
 
-	if(!isRegex(password, errorPassword, regPassword, errorMess)){
+	if (!isRegex(password, errorPassword, regPassword, errorMess)) {
 		return false;
-
-	}else if(!isBetween(password, errorPassword, 8, 30)){
+	} else if (!isBetween(password, errorPassword, 8, 30)) {
 		return false;
 	}
 
@@ -155,15 +151,16 @@ function validatePassword(password, errorPassword) {
 
 /*function validate*/
 function isRequired(inputValue, error_text){
-	if(inputValue == ""){
+	if (inputValue == "") {
 		error_text.innerHTML = "Please Enter value";
 		return false;
 	}
+
 	return true;
 }
 
 function isMax(inputValue, error_text, max){
-	if(inputValue.length >= max){
+	if (inputValue.length >= max) {
 		error_text.innerHTML = "Please Enter less Than "+max+" Characters";
 		return false;
 	}
@@ -171,8 +168,8 @@ function isMax(inputValue, error_text, max){
 	return true;
 }
 
-function isRegex(inputValue, error_text , reg, errorMess){
-	if(!reg.test(inputValue)){
+function isRegex (inputValue, error_text , reg, errorMess) {
+	if (!reg.test(inputValue)) {
 		error_text.innerHTML = errorMess;
 		return false;
 	}
@@ -180,9 +177,9 @@ function isRegex(inputValue, error_text , reg, errorMess){
 	return true;
 }
 
-function isBetween(inputValue, error_text , min, max){
-	if(inputValue.length < min || inputValue.length > max){
-		error_text.innerHTML = "Invalid , character length between "+min+" and "+max;
+function isBetween(inputValue, error_text , min, max) {
+	if (inputValue.length < min || inputValue.length > max) {
+		error_text.innerHTML = "Invalid , character length between " + min + " and " + max;
 		return false;
 	}
 
@@ -191,20 +188,22 @@ function isBetween(inputValue, error_text , min, max){
 
 
 /*format , name, phone, date */
-function formatName(name){
+function formatName(name) {
 	const arrName = name.split(" ");
+
 	for (var i = 0; i < arrName.length; i++) {
 		arrName[i] = arrName[i].charAt(0).toUpperCase() + arrName[i].slice(1);
 	}
+
 	return arrName.join(" ");
 }
 
-function formatPhone(phone){
+function formatPhone(phone) {
 	phone = phone.replace(/(\d{3})(\d{3})(\d{4})/, "$1-$2-$3");
 	return phone;
 }
 
-function formatDate(birthday){
+function formatDate(birthday) {
 	birthday = birthday.split(' ');
 	thisDate = birthday[0].split('-');
 	birthday = [thisDate[2],thisDate[1],thisDate[0] ].join("/");
@@ -218,10 +217,10 @@ function loadFile(event) {
 	const avatars = document.getElementById('avatars');
 	avatar.src = URL.createObjectURL(event.target.files[0]);
 	avatars.src = URL.createObjectURL(event.target.files[0]);
-};
+}
 
 /*reset button*/
-function resetForm(){
+function resetForm() {
 	document.getElementsByTagName('form')[0].reset();
 }
 
