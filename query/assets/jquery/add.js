@@ -32,7 +32,7 @@ $().ready(function() {
 		},
 
 		submitHandler: function(form) {
-			var name = $("#name").val();
+			var name = $("#name").val().trim();
 			name = formatName(name);
 			var email = $("#email").val();
 			var phone = $("#phone").val();

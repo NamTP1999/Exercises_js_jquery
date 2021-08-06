@@ -4,12 +4,12 @@ function add() {
 	event.preventDefault();
 
 	/* get value input  */
-	var name = document.getElementById("name").value;
-	var email = document.getElementById("email").value;
-	var phone = document.getElementById("phone").value;
+	var name = document.getElementById("name").value.trim();
+	var email = document.getElementById("email").value.trim();
+	var phone = document.getElementById("phone").value.trim();
 	var birthday = document.getElementById("birthday").value;
-	var password = document.getElementById("password").value;
-	var confirmpwd = document.getElementById("confirmpwd").value;
+	var password = document.getElementById("password").value.trim();
+	var confirmpwd = document.getElementById("confirmpwd").value.trim();
 
 	/* get id of view*/
 	const dataName = document.getElementById("data_name");
@@ -50,9 +50,9 @@ function add() {
 
 	/* check password and confirmpassword*/
 	if (password.toString() != confirmpwd.toString()) {
-	   	text = "Entered password does not match";
-	   	errorConfirmpwd.innerHTML = text;
-	   	status = false;
+		text = "Entered password does not match";
+		errorConfirmpwd.innerHTML = text;
+		status = false;
 	}
 
 	/*format name  to capitalize*/
@@ -139,11 +139,14 @@ function validatePassword(password, errorPassword) {
 	const regPassword =  /^(?=.*[0-9])(?=.*[A-Z])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{6,16}$/;
 	const errorMess = "Password has at least one special character, number and uppercase letter";
 
-	if (!isRegex(password, errorPassword, regPassword, errorMess)) {
-		return false;
-	} else if (!isBetween(password, errorPassword, 8, 30)) {
-		return false;
+	if ( password != "") {
+		if(!isRegex(password, errorPassword, regPassword, errorMess)) {
+			return false;
+		} else if (!isBetween(password, errorPassword, 8, 30)) {
+			return false;
+		}
 	}
+
 
 	return true;
 }
