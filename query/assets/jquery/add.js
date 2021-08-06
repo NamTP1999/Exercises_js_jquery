@@ -98,7 +98,7 @@ function loadFile(event) {
 
 /*reset button*/
 function resetForm() {
-	document.getElementsByTagName('form')[0].reset();
+	location.reload();
 }
 
 /* catch events keyboard */  
