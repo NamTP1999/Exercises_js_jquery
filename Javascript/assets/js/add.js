@@ -33,26 +33,26 @@ function add() {
 	var text;
 	var status = true;
 
-	//input name
-	status = validateName(name, errorName);
-
-	//input email
-	status = validateEmail(email, errorEmail);
-
-	//input phone
-	status = validatePhone(phone, errorPhone);
+	//input password
+	statusPWD = validatePassword(password, errorPassword);
 
 	//input birthday
-	status = validateBirthday(birthday, errorBirthday);
+	statusBD = validateBirthday(birthday, errorBirthday);
 
-	//input password
-	status = validatePassword(password, errorPassword);
+	//input name
+	statusN = validateName(name, errorName);
+
+	//input email
+	statusE = validateEmail(email, errorEmail);
+
+	//input phone
+	statusP = validatePhone(phone, errorPhone);
+
 
 	/* check password and confirmpassword*/
 	if (password.toString() != confirmpwd.toString()) {
 		text = "Entered password does not match";
 		errorConfirmpwd.innerHTML = text;
-		status = false;
 	}
 
 	/*format name  to capitalize*/
@@ -62,10 +62,18 @@ function add() {
 	phone = formatPhone(phone);
 
 	/*format date*/
-	birthday = formatDate(birthday);
+	// birthday = formatDate(birthday);
 
 	/* save data */ 
-	if (status) {
+	if (statusN && statusE && statusP && statusBD && password == confirmpwd) {
+		//reset form 
+		errorName.innerHTML = "";
+		errorEmail.innerHTML = "";
+		errorPhone.innerHTML = "";
+		errorBirthday.innerHTML = "";
+		errorPassword.innerHTML = "";
+		errorConfirmpwd.innerHTML = "";
+
 		note.style.display = "block";
 		dataName.innerHTML = name;
 		dataEmail.innerHTML = email;
@@ -115,8 +123,8 @@ function validateEmail(email, errorEmail) {
 }
 
 function validatePhone (phone, errorPhone) {
-	const regPhone =/((09|03|07|08|05)+([0-9]{8})\b)/g;
-	const errorMess = "Invalid phone given";
+	const regPhone =/((0)+([0-9]{9})\b)/g;
+	const errorMess = "Start 0 ( Ex: 0123456789 )";
 
 	if (!isRequired(phone, errorPhone)) {
 		return false;
@@ -130,13 +138,25 @@ function validatePhone (phone, errorPhone) {
 function validateBirthday(birthday, errorBirthday) {
 	if (!isRequired(birthday, errorBirthday)) {
 		return false;
+	}else{
+		let day = new Date();
+        let year = day.getFullYear();
+        let lastDay = new Date(birthday.slice(6), birthday.slice(3, 5), 0);
+        let date = lastDay.getDate();
+        if ( birthday.slice(3, 5) > 12 || birthday.slice(0, 2) > date || birthday.slice(6) >= year) {
+        	error_birthday.innerHTML = "Please check the date month year";
+        } else if(isNaN(birthday.slice(0, 2)) || 
+        	isNaN(birthday.slice(3, 5)) || isNaN(birthday.slice(6)) ){
+        	error_birthday.innerHTML = "Date cannot enter letters";
+        }
+        return true;
 	}
 
 	return true;
 }
 
 function validatePassword(password, errorPassword) {
-	const regPassword =  /^(?=.*[0-9])(?=.*[A-Z])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{6,16}$/;
+	const regPassword =  /^(?=.*[0-9])(?=.*[A-Z])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{6,16}/;
 	const errorMess = "Password has at least one special character, number and uppercase letter";
 
 	if ( password != "") {
@@ -144,10 +164,13 @@ function validatePassword(password, errorPassword) {
 			return false;
 		} else if (!isBetween(password, errorPassword, 8, 30)) {
 			return false;
-		}
+		} else if (!/^[a-zA-Z]{1}/.test(password)) {
+	        errorPassword.innerHTML = "Password must start with letter";
+	        return false;
+     	} else if (!/[\d]/.test(password)){
+     		error_password = "Password has at least one special character, number and uppercase letter";
+     	} 
 	}
-
-
 	return true;
 }
 
@@ -213,6 +236,15 @@ function formatDate(birthday) {
 	return birthday;
 }
 
+function inputDate(input) {
+	if (input.value.length == 2) {
+		input.value = input.value + "-";
+	}
+	if (input.value.length == 5) {
+		input.value = input.value + "-";
+	}
+}
+
 
 /* upload images*/
 function loadFile(event) {
@@ -225,19 +257,15 @@ function loadFile(event) {
 /*reset button*/
 function resetForm() {
 	location.reload();
-	// document.getElementsByTagName('form')[0].reset();
 }
 
 /* catch events keyboard */  
-function isKeyPressed(event) {
-	const x = document.getElementById("demo");
-	if (event.key === "Shift") {
+
+document.onkeyup = function(event) {
+	if (event.key == "Shift") {
 		add();
 	}
-
-	if (event.key === "Delete") {
+	if (event.key == "Delete") {
 		resetForm();
-	} 
-
+	}
 }
-
